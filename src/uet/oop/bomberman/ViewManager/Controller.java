@@ -30,6 +30,10 @@ public class Controller {
     private List<Entity> entities = new ArrayList<>();
     private List<Entity> stillObjects = new ArrayList<>();
 
+    public static double[] xBrick = {7, 8, 10, 15, 19, 22, 24 ,26, 7, 13, 15, 23 ,25, 27, 4, 10, 11, 12, 15, 22, 26, 28,
+            11, 17, 19, 29, 13, 14, 17, 20, 19, 23 , 4, 11, 14, 21, 9, 17, 19, 6, 7, 10, 18, 3, 17, 12, 16, 19};
+    public static double[] yBrick = { 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 3, 4, 4, 4, 4, 5, 5,
+            5, 5, 6, 6, 7, 7, 7, 7, 7, 8, 8, 8, 9, 9, 9, 9, 9, 10, 10, 11, 11, 11};
     private boolean isLeftKeyPressed;
     private boolean isRightKeyPressed;
     private boolean isUpKeyPressed;
@@ -61,15 +65,17 @@ public class Controller {
         createMap();
         bomberman = new Bomber(1, 1, Sprite.player_right.getFxImage());
         entities.add(bomberman);
+        createBalloon();
 
         timer = new AnimationTimer() {
             @Override
             public void handle(long now) {
-                render();
+                //render();
                 update();
                 move();
+                moveDown();
             }
-        };
+        };createBrick();
         timer.start();
     }
 
@@ -127,7 +133,9 @@ public class Controller {
 
 
     public void update() {
-        entities.forEach(Entity::update);
+        gc1.clearRect(0, 0, initialCanvas.getWidth(), initialCanvas.getHeight());
+        //entities.forEach(Entity::update);
+        entities.forEach(g -> g.render(gc1));
     }
 
     private void drawMap() {
@@ -175,9 +183,28 @@ public class Controller {
 
     private void move() {
         createListener();
+        for (int i = 0; i < Controller.xBrick.length; i++) {
+            if (bomberman.getX() + 0.6 ==  Controller.xBrick[i]) {
+                return;
+            }
+        }
         if (isRightKeyPressed && !isLeftKeyPressed){
                 bomberman.movement();
+                System.out.println(bomberman.getX());
+        }
+    }
+
+    private void moveDown() {
+        createListener();
+        for (int i = 0; i < Controller.yBrick.length; i++) {
+            if (bomberman.getY() ==  Controller.yBrick[i]) {
+                return;
             }
+        }
+        if (isDownKeyPressed && !isUpKeyPressed){
+            bomberman.moveDown();
+            System.out.println(bomberman.getY());
+        }
     }
 }
 
