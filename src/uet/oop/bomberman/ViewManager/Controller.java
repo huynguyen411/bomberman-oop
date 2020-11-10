@@ -19,10 +19,10 @@ public class Controller {
     public static final int WIDTH = 31;
     public static final int HEIGHT = 13;
     private Stage stage;
-    private Scene scene;
+    public static Scene scene;
     private AnimationTimer timer;
 
-    private Bomber bomberman;
+    public static Bomber bomberman;
     private GraphicsContext gc;
     private GraphicsContext gc1;
     private Canvas initialCanvas;
@@ -34,10 +34,6 @@ public class Controller {
             11, 17, 19, 29, 13, 14, 17, 20, 19, 23 , 4, 11, 14, 21, 9, 17, 19, 6, 7, 10, 18, 3, 17, 12, 16, 19};
     public static double[] yBrick = { 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 3, 4, 4, 4, 4, 5, 5,
             5, 5, 6, 6, 7, 7, 7, 7, 7, 8, 8, 8, 9, 9, 9, 9, 9, 10, 10, 11, 11, 11};
-    private boolean isLeftKeyPressed;
-    private boolean isRightKeyPressed;
-    private boolean isUpKeyPressed;
-    private boolean isDownKeyPressed;
 
     public Controller() {
         start();
@@ -72,8 +68,6 @@ public class Controller {
             public void handle(long now) {
                 //render();
                 update();
-                move();
-                moveDown();
             }
         };createBrick();
         timer.start();
@@ -134,7 +128,7 @@ public class Controller {
 
     public void update() {
         gc1.clearRect(0, 0, initialCanvas.getWidth(), initialCanvas.getHeight());
-        //entities.forEach(Entity::update);
+        entities.forEach(Entity::update);
         entities.forEach(g -> g.render(gc1));
     }
 
@@ -151,61 +145,18 @@ public class Controller {
         entities.forEach(g -> g.render(gc1));
     }
 
-    private void createListener() {
-        scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
-            public void handle(KeyEvent keyEvent) {
-                if (keyEvent.getCode() == KeyCode.LEFT){
-                    isLeftKeyPressed = true;
-                } else if (keyEvent.getCode() == KeyCode.RIGHT){
-                    isRightKeyPressed = true;
-                } else if (keyEvent.getCode() == KeyCode.UP){
-                    isUpKeyPressed = true;
-                } else if (keyEvent.getCode() == KeyCode.DOWN){
-                    isDownKeyPressed = true;
-                }
-            }
-        });
-
-        scene.setOnKeyReleased(new EventHandler<KeyEvent>() {
-            public void handle(KeyEvent keyEvent) {
-                if (keyEvent.getCode() == KeyCode.LEFT){
-                    isLeftKeyPressed = false;
-                } else if (keyEvent.getCode() == KeyCode.RIGHT){
-                    isRightKeyPressed = false;
-                } else if (keyEvent.getCode() == KeyCode.UP){
-                    isUpKeyPressed = false;
-                } else if (keyEvent.getCode() == KeyCode.DOWN){
-                    isDownKeyPressed = false;
-                }
-            }
-        });
-    }
-
-    private void move() {
-        createListener();
-        for (int i = 0; i < Controller.xBrick.length; i++) {
-            if (bomberman.getX() + 0.6 ==  Controller.xBrick[i]) {
-                return;
-            }
-        }
-        if (isRightKeyPressed && !isLeftKeyPressed){
-                bomberman.movement();
-                System.out.println(bomberman.getX());
-        }
-    }
-
-    private void moveDown() {
-        createListener();
-        for (int i = 0; i < Controller.yBrick.length; i++) {
-            if (bomberman.getY() ==  Controller.yBrick[i]) {
-                return;
-            }
-        }
-        if (isDownKeyPressed && !isUpKeyPressed){
-            bomberman.moveDown();
-            System.out.println(bomberman.getY());
-        }
-    }
+//    private void moveDown() {
+//        createListener();
+//        for (int i = 0; i < Controller.yBrick.length; i++) {
+//            if (bomberman.getY() ==  Controller.yBrick[i]) {
+//                return;
+//            }
+//        }
+//        if (isDownKeyPressed && !isUpKeyPressed){
+//            bomberman.moveDown();
+//            System.out.println(bomberman.getY());
+//        }
+//    }
 }
 
 

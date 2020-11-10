@@ -1,26 +1,83 @@
 package uet.oop.bomberman.entities;
 
-import javafx.scene.SnapshotParameters;
-import javafx.scene.canvas.GraphicsContext;
+import javafx.event.EventHandler;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.paint.Color;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import uet.oop.bomberman.ViewManager.Controller;
 
 public class Bomber extends Entity {
-
-    public Bomber(double x, int y, Image img) {
+    public static double STEP = 0.01;
+    private boolean isLeftKeyPressed;
+    private boolean isRightKeyPressed;
+    private boolean isUpKeyPressed;
+    private boolean isDownKeyPressed;
+    public Bomber(double x, double y, Image img) {
         super(x, y, img);
     }
-    public void movement() {
-        super.x += (double) 0.1;
-        super.x = (double)Math.round(x * 100) / 100;
 
+    private void createListener() {
+        Controller.scene.setOnKeyPressed(keyEvent -> {
+            if (keyEvent.getCode() == KeyCode.LEFT){
+                isLeftKeyPressed = true;
+            } else if (keyEvent.getCode() == KeyCode.RIGHT){
+                isRightKeyPressed = true;
+            } else if (keyEvent.getCode() == KeyCode.UP){
+                isUpKeyPressed = true;
+            } else if (keyEvent.getCode() == KeyCode.DOWN){
+                isDownKeyPressed = true;
+            }
+        });
+
+        Controller.scene.setOnKeyReleased(new EventHandler<KeyEvent>() {
+            public void handle(KeyEvent keyEvent) {
+                if (keyEvent.getCode() == KeyCode.LEFT){
+                    isLeftKeyPressed = false;
+                } else if (keyEvent.getCode() == KeyCode.RIGHT){
+                    isRightKeyPressed = false;
+                } else if (keyEvent.getCode() == KeyCode.UP){
+                    isUpKeyPressed = false;
+                } else if (keyEvent.getCode() == KeyCode.DOWN){
+                    isDownKeyPressed = false;
+                }
+            }
+        });
+    }
+    public void moveRight() {
+        super.x += STEP*5;
+        super.x = (double)Math.round(x * 100) / 100;
+        for (int i = 0; i < Controller.xBrick.length; i++) {
+            if (this.getX() + 0.6 ==  Controller.xBrick[i] ) {
+                return;
+            }
+        }
+    }
+    public void moveLeft() {
+        super.x -= STEP*5;
+        super.x = (double)Math.round(x * 100) / 100;
     }
     public void moveDown() {
-        super.y += (double) 0.1;
+        super.y += STEP*5;
         super.y = (double)Math.round(y * 100) / 100;
     }
+    public void moveUp() {
+        super.y -= STEP*5;
+        super.y = (double)Math.round(y * 100) / 100;
+    }
+
+    private void move() {
+        createListener();
+        if (isRightKeyPressed){
+            this.moveRight();
+        } else if (isLeftKeyPressed) {
+            this.moveLeft();
+        } else if (isDownKeyPressed) {
+            this.moveDown();
+        } else if (isUpKeyPressed) {
+            this.moveUp();
+        }
+    }
+
     public double getX() {
         return super.x;
     }
@@ -30,7 +87,7 @@ public class Bomber extends Entity {
 
     @Override
     public void update() {
-
+        move();
     }
 
 }
