@@ -1,19 +1,19 @@
 package uet.oop.bomberman.ViewManager;
 
 import javafx.animation.AnimationTimer;
-import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import uet.oop.bomberman.entities.*;
 import uet.oop.bomberman.graphics.Sprite;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class Controller {
     public static final int WIDTH = 31;
@@ -27,14 +27,61 @@ public class Controller {
     private GraphicsContext gc1;
     private Canvas initialCanvas;
     private Canvas canvas;
-    private List<Entity> entities = new ArrayList<>();
-    private List<Entity> stillObjects = new ArrayList<>();
+    public static List<Entity> entities = new ArrayList<>();
+    public static List<Entity> stillObjects = new ArrayList<>();
+    public static String[] map;
 
-    public static double[] xBrick = {7, 8, 10, 15, 19, 22, 24 ,26, 7, 13, 15, 23 ,25, 27, 4, 10, 11, 12, 15, 22, 26, 28,
-            11, 17, 19, 29, 13, 14, 17, 20, 19, 23 , 4, 11, 14, 21, 9, 17, 19, 6, 7, 10, 18, 3, 17, 12, 16, 19};
-    public static double[] yBrick = { 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 3, 4, 4, 4, 4, 5, 5,
-            5, 5, 6, 6, 7, 7, 7, 7, 7, 8, 8, 8, 9, 9, 9, 9, 9, 10, 10, 11, 11, 11};
+    public void createMapFromFile() {
+        try {
+            Scanner scf = new Scanner(new BufferedReader(new FileReader("res/levels/Level1.txt")));
+            int row = scf.nextInt();
+            row = scf.nextInt();
+            map = new String[row];
+            int col = scf.nextInt();
+            String s = scf.nextLine();
 
+            for (int i = 0; i < row; i++) {
+                map[i] = scf.nextLine();
+                for (int j = 0; j < map[i].length(); j++) {
+                    char key = map[i].charAt(j);
+                    Entity object = null;
+                    switch (key) {
+                        case '#': {
+                            object = new Wall(j, i, Sprite.wall.getFxImage());
+                            stillObjects.add(object);
+                            break;
+                        }
+                        case '*': {
+                            object = new Brick(j, i, Sprite.brick.getFxImage());
+                            stillObjects.add(object);
+                            break;
+                        }
+                        case '1': {
+                            stillObjects.add(new Grass(j, i, Sprite.grass.getFxImage()));
+                            Entity balloon = new Balloon(j, i, Sprite.balloon_left1.getFxImage());
+                            entities.add(balloon);
+                            break;
+                        }
+                        case '2': {
+                            stillObjects.add(new Grass(j, i, Sprite.grass.getFxImage()));
+                            Entity enemy = new Balloon(j, i, Sprite.oneal_left1.getFxImage());
+                            entities.add(enemy);
+                            break;
+                        }
+                        default: {
+                            object = new Grass(j, i, Sprite.grass.getFxImage());
+                            stillObjects.add(object);
+                            break;
+                        }
+                    }
+                }
+            }
+            stillObjects.forEach(g -> g.render(gc));
+        } catch (Exception e) {
+        System.out.println(e.getMessage());
+    }
+
+}
     public Controller() {
         start();
     }
@@ -56,12 +103,12 @@ public class Controller {
 
         // Them scene vao stage
         stage.setScene(scene);
+        stage.setResizable(false);
         stage.show();
 
-        createMap();
+        createMapFromFile();
         bomberman = new Bomber(1, 1, Sprite.player_right.getFxImage());
         entities.add(bomberman);
-        createBalloon();
 
         timer = new AnimationTimer() {
             @Override
@@ -69,7 +116,7 @@ public class Controller {
                 //render();
                 update();
             }
-        };createBrick();
+        };
         timer.start();
     }
 
@@ -90,41 +137,17 @@ public class Controller {
         stillObjects.forEach(g -> g.render(gc));
     }
 
-    private void createBrick() {
-        int[] xAxis = new int[] {7, 8, 10, 15, 19, 22, 24 ,26, 7, 13, 15, 23 ,25, 27, 4, 10, 11, 12, 15, 22, 26, 28,
-                11, 17, 19, 29, 13, 14, 17, 20, 19, 23, 1, 4, 11, 14, 21, 9, 17, 19, 1, 6, 7, 10, 18, 3, 17, 12, 16, 19};
-        int[] yAxis = new int[]{1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 3, 4, 4, 4, 4, 5, 5,
-                5, 5, 6, 6, 7, 7, 7, 7, 7, 8, 8, 8, 9, 9, 9, 9, 9, 10, 10, 11, 11, 11};
 
-        for (int i = 0; i < xAxis.length; i++) {
-            Entity object;
-            object = new Brick(xAxis[i], yAxis[i], Sprite.brick.getFxImage());
-            stillObjects.add(object);
-        }
-    }
-
-    private void createBalloon() {
-        int[] xAxis = new int[] {13, 18, 24};
-        int[] yAxis = new int[] {1, 3, 5};
-
-        for (int i = 0; i < xAxis.length; i++) {
-            Entity object;
-            object = new Balloon(xAxis[i], yAxis[i], Sprite.balloon.getFxImage());
-            entities.add(object);
-        }
-    }
-
-    private void createOneal() {
-        int[] xAxis = new int[] {17, 24};
-        int[] yAxis = new int[] {1, 3};
-
-        for (int i = 0; i < xAxis.length; i++) {
-            Entity object;
-            object = new Oneal(xAxis[i], yAxis[i], Sprite.oneal.getFxImage());
-            entities.add(object);
-        }
-    }
-
+//    private void createBalloon() {
+//        int[] xAxis = new int[] {13, 18, 24};
+//        int[] yAxis = new int[] {1, 3, 5};
+//
+//        for (int i = 0; i < xAxis.length; i++) {
+//            Entity object;
+//            object = new Balloon(xAxis[i], yAxis[i], Sprite.balloon.getFxImage());
+//            entities.add(object);
+//        }
+//    }
 
     public void update() {
         gc1.clearRect(0, 0, initialCanvas.getWidth(), initialCanvas.getHeight());

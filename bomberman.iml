@@ -19,8 +19,7 @@
       <sourceFolder url="file://$MODULE_DIR$/res" type="java-resource" />
       <excludeFolder url="file://$MODULE_DIR$/target" />
     </content>
-    <orderEntry type="jdk" jdkName="JavaSE-1.8" jdkType="JavaSDK" />
-    <orderEntry type="library" name="org.eclipse.m2e.MAVEN2_CLASSPATH_CONTAINER" level="application" />
+    <orderEntry type="jdk" jdkName="14" jdkType="JavaSDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="Maven: org.openjfx:javafx-controls:15" level="project" />
     <orderEntry type="library" name="Maven: org.openjfx:javafx-controls:win:15" level="project" />
