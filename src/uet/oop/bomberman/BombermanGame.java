@@ -12,10 +12,10 @@ public class BombermanGame extends Application {
         Controller controller = new Controller();
     }
     public static void main(String[] args) {
-        //Application.launch(args);
-        Rectangle a= new Rectangle(1, 1, 1, 1);
-        Rectangle b= new Rectangle(1, 1, 0.98, 0.98);
-        System.out.println(a.intersects(b.getLayoutBounds()));
+        Application.launch(args);
+//        Rectangle a= new Rectangle(1, 1, 1, 1);
+//        Rectangle b= new Rectangle(1, 1, 0.98, 0.98);
+//        System.out.println(a.intersects(b.getLayoutBounds()));
     }
 
 }

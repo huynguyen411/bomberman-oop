@@ -5,20 +5,21 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import uet.oop.bomberman.graphics.Sprite;
 
+
 public abstract class Entity {
+    public static double STEP = 0.01;
     protected double x;
     protected double y;
     protected Image img;
     protected Rectangle rec;
 
-    public Entity( double x, double y, Image img) {
+    public Entity(double x, double y, Image img) {
         this.x = x;
         this.y = y;
         this.img = img;
-        this.rec = new Rectangle(x * Sprite.SCALED_SIZE + 1 , y * Sprite.SCALED_SIZE + 1, Sprite.SCALED_SIZE, Sprite.SCALED_SIZE);
+        this.rec = new Rectangle(x + STEP*10, y + STEP*10, img.getWidth()/Sprite.SCALED_SIZE - STEP*10, img.getHeight()/Sprite.SCALED_SIZE - STEP*10);
     }
 
     public double getX() {

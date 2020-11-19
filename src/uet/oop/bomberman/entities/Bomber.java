@@ -1,14 +1,11 @@
 package uet.oop.bomberman.entities;
 
-import javafx.event.EventHandler;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import uet.oop.bomberman.ViewManager.Controller;
 import uet.oop.bomberman.graphics.Sprite;
 
 public class Bomber extends Entity {
-    public static double STEP = 0.01;
     private boolean isLeftKeyPressed;
     private boolean isRightKeyPressed;
     private boolean isUpKeyPressed;
@@ -46,64 +43,84 @@ public class Bomber extends Entity {
             }
         });
 
-        Controller.scene.setOnKeyReleased(new EventHandler<KeyEvent>() {
-            public void handle(KeyEvent keyEvent) {
-                if (keyEvent.getCode() == KeyCode.LEFT){
-                    isLeftKeyPressed = false;
-                } else if (keyEvent.getCode() == KeyCode.RIGHT){
-                    isRightKeyPressed = false;
-                } else if (keyEvent.getCode() == KeyCode.UP){
-                    isUpKeyPressed = false;
-                } else if (keyEvent.getCode() == KeyCode.DOWN){
-                    isDownKeyPressed = false;
-                }
+        Controller.scene.setOnKeyReleased(keyEvent -> {
+            if (keyEvent.getCode() == KeyCode.LEFT){
+                isLeftKeyPressed = false;
+            } else if (keyEvent.getCode() == KeyCode.RIGHT){
+                isRightKeyPressed = false;
+            }
+            if (keyEvent.getCode() == KeyCode.UP){
+                isUpKeyPressed = false;
+            } else if (keyEvent.getCode() == KeyCode.DOWN){
+                isDownKeyPressed = false;
             }
         });
     }
     public void moveRight() {
         if (indexRight == 12)
             indexRight = 0;
-
-        super.x += STEP*5;
-        super.x = (double)Math.round(x * 100) / 100;
-
-        super.img = animationPlayerRight[indexRight / 4];
+        this.x += STEP * 5;
+        for (Entity entity : Controller.stillObjects) {
+            if ((entity instanceof Wall || entity instanceof Brick) && checkIfStuck(entity)) {
+                this.x -= STEP * 5;
+            } else {
+                this.rec.setX(this.x);
+            }
+        }
+        this.x = (double) Math.round(x * 100) / 100;
+        this.img = animationPlayerRight[indexRight / 4];
         indexRight++;
     }
+
     public void moveLeft() {
         if (indexLeft == 12)
             indexLeft = 0;
-        super.x -= STEP*5;
-        super.rec.setX(x*Sprite.SCALED_SIZE);
-        super.x = (double)Math.round(x * 100) / 100;
-        super.img = animationPlayerLeft[indexLeft / 4];
+        this.x -= STEP*5;
+        for (Entity entity : Controller.stillObjects) {
+            if ((entity instanceof Wall || entity instanceof Brick) && checkIfStuck(entity)) {
+                this.x += STEP * 5;
+            } else {
+                this.rec.setX(this.x);
+            }
+        }
+        this.x = (double)Math.round(x * 100) / 100;
+        this.img = animationPlayerLeft[indexLeft / 4];
         indexLeft++;
     }
     public void moveDown() {
         if (indexDown == 12)
             indexDown = 0;
-        super.y += STEP*5;
-        super.y = (double)Math.round(y * 100) / 100;
-        super.img = animationPlayerDown[indexDown / 4];
+        this.y += STEP*5;
+        for (Entity entity : Controller.stillObjects) {
+            if ((entity instanceof Wall || entity instanceof Brick) && checkIfStuck(entity)) {
+                this.y -= STEP * 5;
+            } else {
+                this.rec.setY(this.y);
+            }
+        }
+        this.y = (double)Math.round(y * 100) / 100;
+        this.img = animationPlayerDown[indexDown / 4];
         indexDown++;
     }
     public void moveUp() {
         if (indexUp == 12)
             indexUp = 0;
-        super.y -= STEP*5;
-        super.y = (double)Math.round(y * 100) / 100;
-        super.img = animationPlayerUp[indexUp / 4];
+        this.y -= STEP*5;
+        for (Entity entity : Controller.stillObjects) {
+            if ((entity instanceof Wall || entity instanceof Brick) && checkIfStuck(entity)) {
+                this.y += STEP * 5;
+            } else {
+                this.rec.setY(this.y);
+            }
+        }
+        this.y = (double)Math.round(y * 100) / 100;
+        this.img = animationPlayerUp[indexUp / 4];
         indexUp++;
     }
 
     private void move() {
         createListener();
-        for (Entity entity : Controller.stillObjects){
-            if ((entity instanceof Wall || entity instanceof Brick) && checkIfStuck(entity)) {
-                System.out.println("stuck");
-                return;
-            }
-        }
+
         if (isRightKeyPressed){
             this.moveRight();
         } else if (isLeftKeyPressed) {
@@ -116,17 +133,7 @@ public class Bomber extends Entity {
     }
 
     private boolean checkIfStuck(Entity entity) {
-//        if (isLeftKeyPressed || isRightKeyPressed) {
-//            if ((Math.abs(this.getX() - entity.getX()) < 0.75 && this.getY() == entity.getY()) ||
-//                    (Math.abs(this.getY() - entity.getY()) < 0.75 && this.getX() + 0.7 == entity.getX()))
-//                return true;
-//        }
-//        else if (isUpKeyPressed || isDownKeyPressed) {
-//            if ((Math.abs(this.getY() - entity.getY()) < 0.75 && this.getX() == entity.getX()) ||
-//                    (Math.abs(this.getX() - entity.getX()) < 0.75 && this.getY() + 0.7 == entity.getY()))
-//                return true;
-//        }
-        return this.rec.intersects(entity.rec.getLayoutBounds());
+        return this.rec.collision(entity.rec);
 //        return false;
     }
 
