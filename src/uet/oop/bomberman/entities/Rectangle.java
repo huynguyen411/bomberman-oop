@@ -21,12 +21,28 @@ public class Rectangle {
         this.y = y;
     }
 
+    public void setW(double w) {
+        this.w = w;
+    }
+
     public void setH(double h) {
         this.h = h;
     }
 
-    public void setW(double w) {
-        this.w = w;
+    public double getX() {
+        return x;
+    }
+
+    public double getY() {
+        return y;
+    }
+
+    public double getW() {
+        return w;
+    }
+
+    public double getH() {
+        return h;
     }
 
     public boolean collision(Rectangle o) {
@@ -34,6 +50,7 @@ public class Rectangle {
         double distY = Math.abs((this.y + this.h/2) - (o.y + o.h/2));
         double distW = (this.w + o.w)/2;
         double distH = (this.h + o.h)/2;
-        return (distX - distW < -Entity.STEP*5 && distY - distH < -Entity.STEP*5);
+        return (distW - distX > 0.05 && distH - distY > 0.05);
     }
+
 }
