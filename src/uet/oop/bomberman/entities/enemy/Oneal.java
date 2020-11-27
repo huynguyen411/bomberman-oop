@@ -1,6 +1,7 @@
-package uet.oop.bomberman.entities;
+package uet.oop.bomberman.entities.enemy;
 
 import javafx.scene.image.Image;
+import uet.oop.bomberman.entities.Entity;
 
 public class Oneal extends Entity {
     public Oneal(int x, int y, Image img) {

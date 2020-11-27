@@ -7,6 +7,14 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.stage.Stage;
 import uet.oop.bomberman.entities.*;
+import uet.oop.bomberman.entities.Bomb.Bomb;
+import uet.oop.bomberman.entities.Bomb.Flame;
+import uet.oop.bomberman.entities.Item.BombItem;
+import uet.oop.bomberman.entities.Item.FlameItem;
+import uet.oop.bomberman.entities.Item.Item;
+import uet.oop.bomberman.entities.Item.SpeedItem;
+import uet.oop.bomberman.entities.enemy.Balloon;
+import uet.oop.bomberman.entities.player.Bomber;
 import uet.oop.bomberman.graphics.Sprite;
 
 import java.io.BufferedReader;
@@ -24,8 +32,7 @@ public class Controller {
 
     public static Bomber bomberman;
     private GraphicsContext gc;
-    private GraphicsContext gc1;
-    private Canvas initialCanvas;
+
     private Canvas canvas;
     public static List<Entity> entities = new ArrayList<>();
     public static List<Entity> stillObjects = new ArrayList<>();
@@ -53,7 +60,29 @@ public class Controller {
                         }
                         case '*': {
                             object = new Brick(j, i, Sprite.brick.getFxImage());
+                            stillObjects.add(new Grass(j, i, Sprite.grass.getFxImage()));
                             stillObjects.add(object);
+                            break;
+                        }
+                        case 'f': {
+                            object = new FlameItem(j, i, Sprite.powerup_flames.getFxImage());
+                            stillObjects.add(new Grass(j, i, Sprite.grass.getFxImage()));
+                            stillObjects.add(object);
+                            stillObjects.add(new Brick(j, i, Sprite.brick.getFxImage()));
+                            break;
+                        }
+                        case 'b': {
+                            object = new BombItem(j, i, Sprite.powerup_bombs.getFxImage());
+                            stillObjects.add(new Grass(j, i, Sprite.grass.getFxImage()));
+                            stillObjects.add(object);
+                            stillObjects.add(new Brick(j, i, Sprite.brick.getFxImage()));
+                            break;
+                        }
+                        case 's': {
+                            object = new SpeedItem(j, i, Sprite.powerup_speed.getFxImage());
+                            stillObjects.add(new Grass(j, i, Sprite.grass.getFxImage()));
+                            stillObjects.add(object);
+                            stillObjects.add(new Brick(j, i, Sprite.brick.getFxImage()));
                             break;
                         }
                         case '1': {
@@ -76,26 +105,23 @@ public class Controller {
                     }
                 }
             }
-            stillObjects.forEach(g -> g.render(gc));
         } catch (Exception e) {
         System.out.println(e.getMessage());
     }
 
 }
-    public Controller() {
+    public Controller(Stage menuStage) {
+        menuStage.hide();
         start();
     }
     private void start() {
         // Tao Canvas
-        initialCanvas = new Canvas(Sprite.SCALED_SIZE * WIDTH, Sprite.SCALED_SIZE * HEIGHT);
-        gc = initialCanvas.getGraphicsContext2D();
         canvas = new Canvas(Sprite.SCALED_SIZE * WIDTH, Sprite.SCALED_SIZE * HEIGHT);
-        gc1 = canvas.getGraphicsContext2D();
+        gc = canvas.getGraphicsContext2D();
         stage = new Stage();
 
         // Tao root container
         Group root = new Group();
-        root.getChildren().add(initialCanvas);
         root.getChildren().add(canvas);
 
         // Tao scene
@@ -107,79 +133,40 @@ public class Controller {
         stage.show();
 
         createMapFromFile();
-        bomberman = new Bomber(1, 1, Sprite.player_right.getFxImage());
-        entities.add(bomberman);
-
         timer = new AnimationTimer() {
             @Override
             public void handle(long now) {
-                //render();
+//                render();
                 update();
             }
         };
         timer.start();
+
+        bomberman = new Bomber(1, 1, Sprite.player_right.getFxImage());
+        entities.add(bomberman);
     }
 
-    public void createMap() {
-        for (int i = 0; i < WIDTH; i++) {
-            for (int j = 0; j < HEIGHT; j++) {
-                Entity object;
-                if (j == 0 || j == HEIGHT - 1 || i == 0 || i == WIDTH - 1 || (i % 2 == 0 && j % 2 == 0)) {
-                    object = new Wall(i, j, Sprite.wall.getFxImage());
-                }
-                else {
-                    object = new Grass(i, j, Sprite.grass.getFxImage());
-                }
-                stillObjects.add(object);
-            }
-        }
-
-        stillObjects.forEach(g -> g.render(gc));
-    }
-
-
-//    private void createBalloon() {
-//        int[] xAxis = new int[] {13, 18, 24};
-//        int[] yAxis = new int[] {1, 3, 5};
-//
-//        for (int i = 0; i < xAxis.length; i++) {
-//            Entity object;
-//            object = new Balloon(xAxis[i], yAxis[i], Sprite.balloon.getFxImage());
-//            entities.add(object);
-//        }
-//    }
 
     public void update() {
-        gc1.clearRect(0, 0, initialCanvas.getWidth(), initialCanvas.getHeight());
+
+//        gc1.clearRect(0, 0, initialCanvas.getWidth(), initialCanvas.getHeight());
+        gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+        bomberman.dropBomb();
+        delete();
+        stillObjects.forEach(g -> g.render(gc));
         entities.forEach(Entity::update);
-        entities.forEach(g -> g.render(gc1));
-    }
-
-    private void drawMap() {
-
+        entities.forEach(g -> g.render(gc));
     }
 
     public void render() {
-//        gc.clearRect(0, 0, initialCanvas.getWidth(), initialCanvas.getHeight());
-//        stillObjects.forEach(g -> g.render(gc));
-//        createBrick();
-//        createBalloon();
-//        createOneal();
-        entities.forEach(g -> g.render(gc1));
+        stillObjects.forEach(g -> g.render(gc));
+        entities.forEach(g -> g.render(gc));
     }
 
-//    private void moveDown() {
-//        createListener();
-//        for (int i = 0; i < Controller.yBrick.length; i++) {
-//            if (bomberman.getY() ==  Controller.yBrick[i]) {
-//                return;
-//            }
-//        }
-//        if (isDownKeyPressed && !isUpKeyPressed){
-//            bomberman.moveDown();
-//            System.out.println(bomberman.getY());
-//        }
-//    }
+    public void delete() {
+        stillObjects.removeIf(entity -> (entity instanceof Brick || entity instanceof Item) && entity.getMark());
+        entities.removeIf(entity -> (entity instanceof Flame || entity instanceof Bomb) && entity.getMark());
+    }
 }
 
 

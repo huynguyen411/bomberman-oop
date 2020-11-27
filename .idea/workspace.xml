@@ -20,18 +20,37 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="dfc5ccc5-7617-4dc8-a560-fd15f303126f" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/lib.xml" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/textures/kenvector_future.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/uet/oop/bomberman/ViewManager/StartScene.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/uet/oop/bomberman/entities/Bomb/Bomb.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/uet/oop/bomberman/entities/Bomb/Flame.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/uet/oop/bomberman/entities/Item/BombItem.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/uet/oop/bomberman/entities/Item/FlameItem.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/uet/oop/bomberman/entities/Item/Item.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/uet/oop/bomberman/entities/Item/SpeedItem.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/uet/oop/bomberman/graphics/Buttons/GameButton.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bomberman.iml" beforeDir="false" afterPath="$PROJECT_DIR$/bomberman.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/levels/Level1.txt" beforeDir="false" afterPath="$PROJECT_DIR$/res/levels/Level1.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/uet/oop/bomberman/BombermanGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/uet/oop/bomberman/BombermanGame.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/uet/oop/bomberman/ViewManager/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/uet/oop/bomberman/ViewManager/Controller.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/uet/oop/bomberman/entities/Bomber.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/uet/oop/bomberman/entities/Bomber.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/uet/oop/bomberman/entities/Balloon.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/uet/oop/bomberman/entities/enemy/Balloon.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/uet/oop/bomberman/entities/Bomb.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/uet/oop/bomberman/entities/Bomber.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/uet/oop/bomberman/entities/player/Bomber.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/uet/oop/bomberman/entities/Brick.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/uet/oop/bomberman/entities/Brick.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/uet/oop/bomberman/entities/Entity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/uet/oop/bomberman/entities/Entity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/uet/oop/bomberman/entities/Oneal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/uet/oop/bomberman/entities/enemy/Oneal.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/uet/oop/bomberman/graphics/Sprite.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/uet/oop/bomberman/graphics/Sprite.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/levels/Level1.txt" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/levels/Level1.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/uet/oop/bomberman/BombermanGame.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/uet/oop/bomberman/BombermanGame.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/uet/oop/bomberman/ViewManager/Controller$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/uet/oop/bomberman/ViewManager/Controller$1.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/uet/oop/bomberman/ViewManager/Controller.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/uet/oop/bomberman/ViewManager/Controller.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/uet/oop/bomberman/entities/Bomber$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/uet/oop/bomberman/entities/Bomber$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/uet/oop/bomberman/entities/Bomber.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/uet/oop/bomberman/entities/Bomber.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/uet/oop/bomberman/entities/Balloon.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/uet/oop/bomberman/entities/Bomb.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/uet/oop/bomberman/entities/Bomber.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/uet/oop/bomberman/entities/Brick.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/uet/oop/bomberman/entities/Brick.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/uet/oop/bomberman/entities/Entity.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/uet/oop/bomberman/entities/Entity.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/uet/oop/bomberman/entities/Oneal.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/uet/oop/bomberman/graphics/Sprite.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/uet/oop/bomberman/graphics/Sprite.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,6 +65,11 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="1jcbQJEoe98fUkbTZBcVHnR2bX5" />
@@ -56,11 +80,16 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../../Program Files/Java/openjfx-14.0.2.1_windows-x64_bin-sdk/javafx-sdk-14.0.2.1/lib" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/res/textures" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.3448276" />
     <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\admin\Desktop\bomberman-starter\res\textures" />
+    </key>
   </component>
   <component name="RunManager">
     <configuration name="BombermanGame" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
@@ -96,6 +125,17 @@
     </task>
     <servers />
   </component>
+  <component name="Vcs.Log.History.Properties">
+    <option name="SHOW_OTHER_BRANCHES" value="true" />
+    <option name="COLUMN_ORDER">
+      <list>
+        <option value="0" />
+        <option value="2" />
+        <option value="3" />
+        <option value="1" />
+      </list>
+    </option>
+  </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
       <map>
@@ -109,34 +149,42 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="223" y="70" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1604241686372">
+    <state x="223" y="70" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1606130555306">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="223" y="70" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1536.824@0.0.1536.824" timestamp="1604241686372" />
-    <state x="93" y="93" width="1350" height="638" key="DiffContextDialog" timestamp="1604886606864">
+    <state x="223" y="70" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1536.824@0.0.1536.824" timestamp="1606130555306" />
+    <state x="574" y="121" key="#com.intellij.ide.util.MemberChooser" timestamp="1606351790872">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="93" y="93" width="1350" height="638" key="DiffContextDialog/0.0.1536.824@0.0.1536.824" timestamp="1604886606864" />
+    <state x="574" y="121" key="#com.intellij.ide.util.MemberChooser/0.0.1536.824@0.0.1536.824" timestamp="1606351790872" />
+    <state x="562" y="292" width="411" height="243" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes" timestamp="1606181871737">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="562" y="292" width="411" height="243" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes/0.0.1536.824@0.0.1536.824" timestamp="1606181871737" />
+    <state x="93" y="93" width="1350" height="638" key="DiffContextDialog" timestamp="1605772083642">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="93" y="93" width="1350" height="638" key="DiffContextDialog/0.0.1536.824@0.0.1536.824" timestamp="1605772083642" />
     <state x="473" y="156" key="FileChooserDialogImpl" timestamp="1604379241280">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="473" y="156" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1604379241280" />
-    <state width="1493" height="264" key="GridCell.Tab.0.bottom" timestamp="1605613647337">
+    <state width="1493" height="264" key="GridCell.Tab.0.bottom" timestamp="1606446386163">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="264" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1605613647337" />
-    <state width="1493" height="264" key="GridCell.Tab.0.center" timestamp="1605613647336">
+    <state width="1493" height="264" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1606446386163" />
+    <state width="1493" height="264" key="GridCell.Tab.0.center" timestamp="1606446386162">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="264" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1605613647336" />
-    <state width="1493" height="264" key="GridCell.Tab.0.left" timestamp="1605613647336">
+    <state width="1493" height="264" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1606446386162" />
+    <state width="1493" height="264" key="GridCell.Tab.0.left" timestamp="1606446386162">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="264" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1605613647336" />
-    <state width="1493" height="264" key="GridCell.Tab.0.right" timestamp="1605613647337">
+    <state width="1493" height="264" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1606446386162" />
+    <state width="1493" height="264" key="GridCell.Tab.0.right" timestamp="1606446386163">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="264" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1605613647337" />
+    <state width="1493" height="264" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1606446386163" />
     <state width="1493" height="261" key="GridCell.Tab.1.bottom" timestamp="1604402893633">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -153,10 +201,14 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state width="1493" height="261" key="GridCell.Tab.1.right/0.0.1536.824@0.0.1536.824" timestamp="1604402893633" />
-    <state x="249" y="0" key="SettingsEditor" timestamp="1605488942755">
+    <state x="249" y="0" key="SettingsEditor" timestamp="1606130572304">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="249" y="0" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1605488942755" />
+    <state x="249" y="0" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1606130572304" />
+    <state x="93" y="93" width="1350" height="638" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1606225773277">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="93" y="93" width="1350" height="638" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.0.1536.824@0.0.1536.824" timestamp="1606225773277" />
     <state x="431" y="145" width="672" height="678" key="search.everywhere.popup" timestamp="1605492040699">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
