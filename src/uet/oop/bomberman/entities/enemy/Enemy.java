@@ -5,6 +5,7 @@ import uet.oop.bomberman.ViewManager.Controller;
 import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.entities.mob.Mob;
 import uet.oop.bomberman.entities.bomb.Flame;
+import uet.oop.bomberman.entities.player.Bomber;
 
 import java.util.Random;
 
@@ -14,6 +15,7 @@ public abstract class Enemy extends Mob {
 
     public Enemy(double x, double y, Image img) {
         super(x, y, img);
+        this.life = 1;
     }
 
     public abstract void move();
@@ -21,6 +23,7 @@ public abstract class Enemy extends Mob {
     public boolean dead(Image[] deadAnimation) {
         for (Entity entity : Controller.entities) {
             if (entity instanceof Flame && checkIfStuck(entity)) {
+                this.life--;
                 this.dir = 0;
                 destroyedAnimation(deadAnimation);
                 return true;

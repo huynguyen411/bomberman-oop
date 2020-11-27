@@ -5,7 +5,11 @@ import javafx.animation.Timeline;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.util.Duration;
+import uet.oop.bomberman.entities.enemy.Enemy;
+import uet.oop.bomberman.entities.mob.Mob;
+import uet.oop.bomberman.entities.player.Bomber;
 import uet.oop.bomberman.graphics.Sprite;
+import uet.oop.bomberman.sound.Sound;
 
 
 public abstract class Entity {
@@ -69,6 +73,13 @@ public abstract class Entity {
             t.getKeyFrames().add(new KeyFrame(Duration.seconds(0.5*(i+1)), event -> this.setImg(animation[finalI])));
         }
         t.getKeyFrames().add(new KeyFrame(Duration.seconds(0.5*(animation.length+1)), event -> this.getMark = true));
+        if (((Mob) this).getLife() == 0) {
+            if (this instanceof Bomber) {
+                t.getKeyFrames().add(new KeyFrame(Duration.seconds(0), event -> new Sound("player_die_1.wav")));
+            } else if (this instanceof Enemy) {
+                t.getKeyFrames().add(new KeyFrame(Duration.seconds(0), event -> new Sound("enemy_die.wav")));
+            }
+        }
         t.play();
     }
 

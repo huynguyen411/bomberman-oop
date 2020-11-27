@@ -9,6 +9,7 @@ import uet.oop.bomberman.entities.enemy.Enemy;
 import uet.oop.bomberman.entities.mob.Mob;
 import uet.oop.bomberman.entities.bomb.Flame;
 import uet.oop.bomberman.graphics.Sprite;
+import uet.oop.bomberman.sound.Sound;
 
 public class Bomber extends Mob {
     private boolean isLeftKeyPressed;
@@ -17,7 +18,6 @@ public class Bomber extends Mob {
     private boolean isDownKeyPressed;
     private boolean isSpaceKeyPressed;
     private boolean isBombed = false;
-    private int life = 3;
 
     private final Image[] animationPlayerUp = {Sprite.player_up.getFxImage(), Sprite.player_up_1.getFxImage(), Sprite.player_up_2.getFxImage()};
     private final Image[] animationPlayerDown = {Sprite.player_down.getFxImage(), Sprite.player_down_1.getFxImage(), Sprite.player_down_2.getFxImage()};
@@ -28,6 +28,7 @@ public class Bomber extends Mob {
         super(x, y, img);
         this.rec = new Rectangle(x + 0.1, y + 0.1, 0.8, 1.02);
         this.speed = 0.04;
+        this.life = 3;
     }
 
     public void setSpeed(double speed) {
@@ -68,15 +69,31 @@ public class Bomber extends Mob {
     private void move() {
         createListener();
         if (life > 0) {
-            if (isDownKeyPressed && canMoveDown()) {
-                moveDown(animationPlayerDown);
-            } else if (isUpKeyPressed && canMoveUp()) {
-                moveUp(animationPlayerUp);
+            if (isDownKeyPressed) {
+                if (canMoveDown()) {
+                    moveDown(animationPlayerDown);
+                } else {
+                    new Sound("cant_move.wav");
+                }
+            } else if (isUpKeyPressed ) {
+                if (canMoveUp()) {
+                    moveUp(animationPlayerUp);
+                } else {
+                    new Sound("cant_move.wav");
+                }
             }
-            if (isRightKeyPressed && canMoveRight()) {
-                moveRight(animationPlayerRight);
-            } else if (isLeftKeyPressed && canMoveLeft()) {
-                moveLeft(animationPlayerLeft);
+            if (isRightKeyPressed) {
+                if (canMoveRight()) {
+                    moveRight(animationPlayerRight);
+                } else {
+                    new Sound("cant_move.wav");
+                }
+            } else if (isLeftKeyPressed ) {
+                if (canMoveLeft()) {
+                    moveLeft(animationPlayerLeft);
+                } else {
+                    new Sound("cant_move.wav");
+                }
             }
         }
     }
@@ -92,7 +109,7 @@ public class Bomber extends Mob {
     public boolean touchEnemy() {
         for (Entity entity : Controller.entities) {
             if ((entity instanceof Enemy || entity instanceof Flame) && checkIfStuck(entity)) {
-                life--;
+                this.life--;
                 System.out.println(life);
                 return true;
             }
@@ -105,6 +122,7 @@ public class Bomber extends Mob {
         if (touchEnemy()) {
             if (this.life > 0) {
                 reborn();
+                new Sound("die_restart.wav");
             } else {
                 this.setMark(true);
                 dead();

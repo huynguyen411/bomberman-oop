@@ -14,9 +14,14 @@ public class Mob extends Entity {
     protected int indexDown = 0;
     protected int indexLeft = 0;
     protected int indexRight = 0;
+    protected int life;
 
     public Mob(double x, double y, Image img) {
         super(x, y, img);
+    }
+
+    public int getLife() {
+        return this.life;
     }
 
     public boolean checkIfStuck(Entity entity) {
