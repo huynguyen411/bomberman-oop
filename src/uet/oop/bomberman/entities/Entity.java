@@ -9,7 +9,7 @@ import uet.oop.bomberman.graphics.Sprite;
 
 
 public abstract class Entity {
-    protected double speed;
+
     protected double x;
     protected double y;
     protected Image img;

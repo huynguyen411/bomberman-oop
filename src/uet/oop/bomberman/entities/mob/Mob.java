@@ -9,6 +9,7 @@ import uet.oop.bomberman.entities.Brick;
 import uet.oop.bomberman.entities.Wall;
 
 public class Mob extends Entity {
+    protected double speed; 
     protected int indexUp = 0;
     protected int indexDown = 0;
     protected int indexLeft = 0;
