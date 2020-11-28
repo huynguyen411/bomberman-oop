@@ -122,7 +122,11 @@ public class Bomber extends Mob {
         createListener();
         if (isSpaceKeyPressed && !isBombed && canBeDroppedBombed()) {
             makeABomb();
-            new Sound("bomb_put.wav").play();
+            Timeline t = new Timeline();
+            t.getKeyFrames().add(new KeyFrame(Duration.seconds(0), e -> new Sound("bomb_put.wav").play()));
+            t.getKeyFrames().add(new KeyFrame(Duration.seconds(0.8), e -> new Sound("bomb_explosion_1.wav").play()));
+            t.setCycleCount(1);
+            t.play();
         }
     }
 

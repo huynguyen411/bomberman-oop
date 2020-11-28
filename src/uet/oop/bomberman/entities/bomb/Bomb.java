@@ -82,7 +82,6 @@ public class Bomb extends Entity {
                 this.setMark(true);
             }
         }));
-//        animation.getKeyFrames().add(new KeyFrame(Duration.seconds(0.5), event -> explosionSound.play()));
         animation.setCycleCount(Timeline.INDEFINITE);
         animation.play();
     }
