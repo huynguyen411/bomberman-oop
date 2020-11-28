@@ -50,6 +50,6 @@ public class Rectangle {
         double distY = Math.abs((this.y + this.h/2) - (o.y + o.h/2));
         double distW = (this.w + o.w)/2;
         double distH = (this.h + o.h)/2;
-        return (distX - distW < -Entity.STEP*5 && distY - distH < -Entity.STEP*5);
+        return (distX - distW < -0.05 && distY - distH < -0.05);
     }
 }

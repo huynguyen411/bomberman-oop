@@ -1,12 +1,11 @@
 package uet.oop.bomberman.entities.Mob;
 
 import javafx.scene.image.Image;
-import uet.oop.bomberman.viewmanager.Controller;
+import uet.oop.bomberman.entities.Brick;
 import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.entities.Rectangle;
-import uet.oop.bomberman.entities.bomb.Bomb;
-import uet.oop.bomberman.entities.Brick;
 import uet.oop.bomberman.entities.Wall;
+import uet.oop.bomberman.viewmanager.Controller;
 
 public class Mob extends Entity {
     protected double speed;

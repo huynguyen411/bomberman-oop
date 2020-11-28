@@ -5,21 +5,19 @@ import javafx.animation.Timeline;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.util.Duration;
+import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.entities.Mob.Mob;
 import uet.oop.bomberman.entities.Rectangle;
-import uet.oop.bomberman.entities.enemy.Enemy;
-import uet.oop.bomberman.sound.Sound;
-import uet.oop.bomberman.viewmanager.Controller;
 import uet.oop.bomberman.entities.bomb.Bomb;
 import uet.oop.bomberman.entities.bomb.Flame;
-import uet.oop.bomberman.entities.Brick;
-import uet.oop.bomberman.entities.Entity;
+import uet.oop.bomberman.entities.enemy.Enemy;
 import uet.oop.bomberman.entities.item.BombItem;
 import uet.oop.bomberman.entities.item.FlameItem;
 import uet.oop.bomberman.entities.item.Item;
 import uet.oop.bomberman.entities.item.SpeedItem;
-import uet.oop.bomberman.entities.Wall;
 import uet.oop.bomberman.graphics.Sprite;
+import uet.oop.bomberman.sound.Sound;
+import uet.oop.bomberman.viewmanager.Controller;
 
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -44,7 +42,6 @@ public class Bomber extends Mob {
     private final Image[] animationPlayerRight = {Sprite.player_right.getFxImage(), Sprite.player_right_1.getFxImage(), Sprite.player_right_2.getFxImage()};
     private final Image[] deadAnimation = {Sprite.player_dead1.getFxImage(), Sprite.player_dead2.getFxImage(), Sprite.player_dead3.getFxImage()};
 
-    private int countDown = 2;
     public Bomber(double x, double y, Image img) {
         super(x, y, img);
         super.rec = new Rectangle(x + 0.1, y + 0.1, 0.8, 1.03);
@@ -89,10 +86,10 @@ public class Bomber extends Mob {
     }
 
     private void move() {
-        if (buffSpeed)
-            STEP = 0.015;
-        else
-            STEP = 0.01;
+        if(buffSpeed) {
+            this.speed = 0.05;
+        }
+
         createListener();
 
         if (life > 0) {
@@ -108,10 +105,6 @@ public class Bomber extends Mob {
             }
         }
         getItem();
-    }
-
-    public void setBuffRange(boolean buffRange) {
-        this.buffRange = buffRange;
     }
 
     public boolean getBuffRange() {
@@ -131,10 +124,8 @@ public class Bomber extends Mob {
     }
 
     private boolean canBeDroppedBombed() {
-        if (Controller.map[(int) this.getY()].charAt((int) this.getX()) != '#'
-            && Controller.map[(int) this.getY()].charAt((int) this.getX()) != '*' )
-            return true;
-        return false;
+        return Controller.map[(int) this.getY()].charAt((int) this.getX()) != '#'
+                && Controller.map[(int) this.getY()].charAt((int) this.getX()) != '*';
     }
 
     private void makeABomb() {
@@ -220,7 +211,6 @@ public class Bomber extends Mob {
                 }
                 else if (entity instanceof SpeedItem) {
                     buffSpeed = true;
-                    this.speed = 0.05;
                 }
                 else if (entity instanceof BombItem) {
                     buffBomb = true;
