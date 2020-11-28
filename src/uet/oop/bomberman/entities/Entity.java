@@ -31,7 +31,7 @@ public abstract class Entity {
         this.y = y;
         this.img = img;
         this.mark = false;
-        this.rec = new Rectangle(x, y, 1, 1);
+        this.rec = new Rectangle(x, y, 1.025, 1.025);
     }
 
     public Rectangle getRec() {

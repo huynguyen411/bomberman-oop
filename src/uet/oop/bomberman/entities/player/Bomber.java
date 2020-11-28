@@ -47,8 +47,8 @@ public class Bomber extends Mob {
     private int countDown = 2;
     public Bomber(double x, double y, Image img) {
         super(x, y, img);
-        super.rec = new Rectangle(x + 0.1, y + 0.1, 0.8, 1.02);
-        this.speed = 0.04;
+        super.rec = new Rectangle(x + 0.1, y + 0.1, 0.8, 1.03);
+        this.speed = 0.03;
         this.life = 3;
     }
 
@@ -220,6 +220,7 @@ public class Bomber extends Mob {
                 }
                 else if (entity instanceof SpeedItem) {
                     buffSpeed = true;
+                    this.speed = 0.05;
                 }
                 else if (entity instanceof BombItem) {
                     buffBomb = true;

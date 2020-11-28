@@ -9,7 +9,7 @@ public class Oneal extends Enemy {
     private final Image[] onealRightAnimation = {Sprite.oneal_right1.getFxImage(), Sprite.oneal_right2.getFxImage(), Sprite.oneal_right3.getFxImage()};
     public Oneal(int x, int y, Image img) {
         super(x, y, img);
-        this.speed = 0.04;
+        this.speed = 0.025;
     }
 
     private int wayCount() {
