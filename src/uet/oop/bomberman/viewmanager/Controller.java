@@ -18,6 +18,7 @@ import uet.oop.bomberman.entities.item.SpeedItem;
 import uet.oop.bomberman.entities.enemy.Balloon;
 import uet.oop.bomberman.entities.player.Bomber;
 import uet.oop.bomberman.graphics.Sprite;
+import uet.oop.bomberman.sound.Sound;
 
 import java.io.BufferedReader;
 import java.io.FileReader;

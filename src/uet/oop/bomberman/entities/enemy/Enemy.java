@@ -21,6 +21,7 @@ public abstract class Enemy extends Mob {
     public boolean dead(Image[] deadAnimation) {
         for (Entity entity : Controller.entities) {
             if (entity instanceof Flame && checkIfStuck(entity)) {
+                this.life--;
                 this.dir = 0;
                 destroyedAnimation(deadAnimation);
                 return true;

@@ -8,6 +8,7 @@ import javafx.util.Duration;
 import uet.oop.bomberman.entities.Mob.Mob;
 import uet.oop.bomberman.entities.Rectangle;
 import uet.oop.bomberman.entities.enemy.Enemy;
+import uet.oop.bomberman.sound.Sound;
 import uet.oop.bomberman.viewmanager.Controller;
 import uet.oop.bomberman.entities.bomb.Bomb;
 import uet.oop.bomberman.entities.bomb.Flame;
@@ -36,7 +37,6 @@ public class Bomber extends Mob {
     private boolean buffRange = false;
     private boolean buffSpeed = false;
     private boolean buffBomb = false;
-    private int life = 3;
 
     private final Image[] animationPlayerUp = {Sprite.player_up.getFxImage(), Sprite.player_up_1.getFxImage(), Sprite.player_up_2.getFxImage()};
     private final Image[] animationPlayerDown = {Sprite.player_down.getFxImage(), Sprite.player_down_1.getFxImage(), Sprite.player_down_2.getFxImage()};
@@ -44,15 +44,16 @@ public class Bomber extends Mob {
     private final Image[] animationPlayerRight = {Sprite.player_right.getFxImage(), Sprite.player_right_1.getFxImage(), Sprite.player_right_2.getFxImage()};
     private final Image[] deadAnimation = {Sprite.player_dead1.getFxImage(), Sprite.player_dead2.getFxImage(), Sprite.player_dead3.getFxImage()};
 
-    private int indexUp = 0;
-    private int indexDown = 0;
-    private int indexLeft = 0;
-    private int indexRight = 0;
     private int countDown = 2;
     public Bomber(double x, double y, Image img) {
         super(x, y, img);
-        super.rec = new Rectangle(x + 0.1, y + 0.1, 0.8, 1);
+        super.rec = new Rectangle(x + 0.1, y + 0.1, 0.8, 1.02);
         this.speed = 0.04;
+        this.life = 3;
+    }
+
+    public int getLife() {
+        return life;
     }
 
     private void createListener() {
@@ -86,69 +87,6 @@ public class Bomber extends Mob {
             }
         });
     }
-    public void moveRight() {
-        if (indexRight == 12)
-            indexRight = 0;
-        this.x += STEP * 5;
-        for (Entity entity : Controller.stillObjects) {
-            if ((entity instanceof Wall || entity instanceof Brick) && checkIfStuck(entity)) {
-                this.x -= STEP * 5;
-            } else {
-                this.rec.setX(this.x);
-            }
-        }
-
-        this.img = animationPlayerRight[indexRight / 4];
-        indexRight++;
-    }
-
-    public void moveLeft() {
-        if (indexLeft == 12)
-            indexLeft = 0;
-        this.x -= STEP*5;
-        for (Entity entity : Controller.stillObjects) {
-            if ((entity instanceof Wall || entity instanceof Brick) && checkIfStuck(entity)) {
-                this.x += STEP * 5;
-            } else {
-                this.rec.setX(this.x);
-            }
-        }
-
-        this.img = animationPlayerLeft[indexLeft / 4];
-        indexLeft++;
-    }
-
-    public void moveDown() {
-        if (indexDown == 12)
-            indexDown = 0;
-        this.y += STEP*5;
-        for (Entity entity : Controller.stillObjects) {
-            if ((entity instanceof Wall || entity instanceof Brick) && checkIfStuck(entity)) {
-                this.y -= STEP * 5;
-            } else {
-                this.rec.setY(this.y);
-            }
-        }
-
-        this.img = animationPlayerDown[indexDown / 4];
-        indexDown++;
-    }
-
-    public void moveUp() {
-        if (indexUp == 12)
-            indexUp = 0;
-        this.y -= STEP*5;
-        for (Entity entity : Controller.stillObjects) {
-            if ((entity instanceof Wall || entity instanceof Brick) && checkIfStuck(entity)) {
-                this.y += STEP * 5;
-            } else {
-                this.rec.setY(this.y);
-            }
-        }
-
-        this.img = animationPlayerUp[indexUp / 4];
-        indexUp++;
-    }
 
     private void move() {
         if (buffSpeed)
@@ -157,14 +95,17 @@ public class Bomber extends Mob {
             STEP = 0.01;
         createListener();
 
-        if (isRightKeyPressed){
-            moveRight();
-        } else if (isLeftKeyPressed) {
-            this.moveLeft();
-        } else if (isDownKeyPressed) {
-            this.moveDown();
-        } else if (isUpKeyPressed) {
-            this.moveUp();
+        if (life > 0) {
+            if (isDownKeyPressed && canMoveDown()) {
+                moveDown(animationPlayerDown);
+            } else if (isUpKeyPressed && canMoveUp()) {
+                moveUp(animationPlayerUp);
+            }
+            if (isRightKeyPressed && canMoveRight()) {
+                moveRight(animationPlayerRight);
+            } else if (isLeftKeyPressed && canMoveLeft()) {
+                moveLeft(animationPlayerLeft);
+            }
         }
         getItem();
     }
@@ -181,6 +122,7 @@ public class Bomber extends Mob {
         createListener();
         if (isSpaceKeyPressed && !isBombed && canBeDroppedBombed()) {
             makeABomb();
+            new Sound("bomb_put.wav").play();
         }
     }
 
@@ -302,20 +244,10 @@ public class Bomber extends Mob {
         destroyedAnimation(deadAnimation);
     }
     public boolean touchEnemy() {
-
         for (Entity entity : Controller.entities) {
             if ((entity instanceof Enemy || entity instanceof Flame) && checkIfStuck(entity)) {
-                Timeline animation = new Timeline(new KeyFrame(Duration.seconds(1), e -> {
-                    if (countDown == 0) {
-                        life--;
-                        System.out.println(life);
-                    }
-                    countDown--;
-                }));
-                animation.setCycleCount(Timeline.INDEFINITE);
-                animation.play();
-                countDown = 2;
-
+                this.life--;
+                System.out.println(life);
                 return true;
             }
         }
@@ -327,6 +259,7 @@ public class Bomber extends Mob {
         if (touchEnemy()) {
             if (this.life > 0) {
                 reborn();
+                new Sound("die_restart.wav").play();
             } else {
                 this.setMark(true);
                 dead();

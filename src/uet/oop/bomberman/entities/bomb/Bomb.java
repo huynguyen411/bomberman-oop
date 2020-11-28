@@ -6,6 +6,7 @@ import javafx.scene.image.Image;
 import javafx.util.Duration;
 import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.graphics.Sprite;
+import uet.oop.bomberman.sound.Sound;
 
 import java.util.ArrayList;
 
@@ -14,6 +15,12 @@ import static uet.oop.bomberman.viewmanager.Controller.entities;
 import static uet.oop.bomberman.entities.bomb.Flame.*;
 
 public class Bomb extends Entity {
+
+    private Sound explosionSound = new Sound("bomb_explosion_1.wav");
+
+    public void setExplosionSound(Sound explosionSound) {
+        this.explosionSound = explosionSound;
+    }
 
     public static final Image[] animationBomb = {Sprite.bomb.getFxImage(), Sprite.bomb_1.getFxImage(),
             Sprite.bomb_2.getFxImage(), Sprite.bomb_1.getFxImage(), Sprite.bomb.getFxImage(), Sprite.bomb_exploded.getFxImage(),
@@ -75,6 +82,7 @@ public class Bomb extends Entity {
                 this.setMark(true);
             }
         }));
+//        animation.getKeyFrames().add(new KeyFrame(Duration.seconds(0.5), event -> explosionSound.play()));
         animation.setCycleCount(Timeline.INDEFINITE);
         animation.play();
     }

@@ -14,9 +14,13 @@ public class Mob extends Entity {
     protected int indexDown = 0;
     protected int indexLeft = 0;
     protected int indexRight = 0;
-
+    protected int life = 1;
     public Mob(double x, double y, Image img) {
         super(x, y, img);
+    }
+
+    public int getLife() {
+        return life;
     }
 
     public boolean checkIfStuck(Entity entity) {
@@ -30,11 +34,11 @@ public class Mob extends Entity {
                 return false;
             }
         }
-        for (Entity entity : Controller.entities) {
-            if (entity instanceof Bomb && temp.collision(entity.getRec())) {
-                return false;
-            }
-        }
+//        for (Entity entity : Controller.entities) {
+//            if (entity instanceof Bomb && temp.collision(entity.getRec())) {
+//                return false;
+//            }
+//        }
         return true;
     }
 
@@ -45,11 +49,11 @@ public class Mob extends Entity {
                 return false;
             }
         }
-        for (Entity entity : Controller.entities) {
-            if (entity instanceof Bomb && temp.collision(entity.getRec())) {
-                return false;
-            }
-        }
+//        for (Entity entity : Controller.entities) {
+//            if (entity instanceof Bomb && temp.collision(entity.getRec())) {
+//                return false;
+//            }
+//        }
         return true;
     }
 
@@ -60,11 +64,11 @@ public class Mob extends Entity {
                 return false;
             }
         }
-        for (Entity entity : Controller.entities) {
-            if (entity instanceof Bomb && temp.collision(entity.getRec())) {
-                return false;
-            }
-        }
+//        for (Entity entity : Controller.entities) {
+//            if (entity instanceof Bomb && temp.collision(entity.getRec())) {
+//                return false;
+//            }
+//        }
         return true;
     }
 
@@ -75,11 +79,11 @@ public class Mob extends Entity {
                 return false;
             }
         }
-        for (Entity entity : Controller.entities) {
-            if (entity instanceof Bomb && temp.collision(entity.getRec())) {
-                return false;
-            }
-        }
+//        for (Entity entity : Controller.entities) {
+//            if (entity instanceof Bomb && temp.collision(entity.getRec())) {
+//                return false;
+//            }
+//        }
         return true;
     }
 

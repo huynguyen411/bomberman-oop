@@ -6,7 +6,9 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import uet.oop.bomberman.graphics.Buttons.GameButton;
+import uet.oop.bomberman.sound.Sound;
 
 import java.util.ArrayList;
 
@@ -16,22 +18,25 @@ public class StartScene {
     private AnchorPane menuPane;
     private Stage stage;
     private Scene scene;
-
+    private Sound sound;
     private static final int NEW_BUTTONS_START_X = 100;
     public static final int NEW_BUTTONS_START_Y = 150;
 
     ArrayList<GameButton> menuButtons;
 
-    public StartScene(){
+    public StartScene() throws Exception {
         menuButtons = new ArrayList<>();
         menuPane = new AnchorPane();
         scene = new Scene(menuPane, WIDTH, HEIGHT);
         stage = new Stage();
         stage.setScene(scene);
+        sound = new Sound("background_music.wav");
+        sound.start(stage);
         createButtons();
         createBackground();
 
         stage.show();
+
     };
 
 
@@ -56,8 +61,18 @@ public class StartScene {
         button.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
+                try {
+                    sound.stop();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                sound = new Sound("level_start.wav");
+                try {
+                    sound.start(stage);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
                 Controller controller = new Controller(stage);
-
             }
         });
     }

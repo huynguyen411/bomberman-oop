@@ -2,6 +2,7 @@ package uet.oop.bomberman;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
+import uet.oop.bomberman.sound.Sound;
 import uet.oop.bomberman.viewmanager.StartScene;
 
 public class BombermanGame extends Application {
