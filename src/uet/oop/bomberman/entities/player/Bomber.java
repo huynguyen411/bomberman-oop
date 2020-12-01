@@ -34,6 +34,7 @@ public class Bomber extends Mob {
     private boolean buffRange = false;
     private boolean buffSpeed = false;
     private boolean buffBomb = false;
+    private int win = 0;
 
     private final Image[] animationPlayerUp = {Sprite.player_up.getFxImage(), Sprite.player_up_1.getFxImage(), Sprite.player_up_2.getFxImage()};
     private final Image[] animationPlayerDown = {Sprite.player_down.getFxImage(), Sprite.player_down_1.getFxImage(), Sprite.player_down_2.getFxImage()};
@@ -85,6 +86,12 @@ public class Bomber extends Mob {
     }
 
     private void move() {
+        int count = 0;
+        for (Entity e : entities) {
+            if (e instanceof Enemy) {
+                count++;
+            }
+        }
         if(buffSpeed) {
             this.speed = 0.08;
         }
@@ -105,6 +112,20 @@ public class Bomber extends Mob {
             }
         }
         getItem();
+        for (Entity entity : stillObjects) {
+            if (this.rec.collision(entity.rec) && entity instanceof Portal) {
+                if (count == 0) {
+                    win++;
+                    if (win == 1) {
+                        try {
+                            new EndGameScene(Controller.stage, "textures/bomberman_background.png");
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            }
+        }
     }
 
     public boolean getBuffRange() {
@@ -214,13 +235,6 @@ public class Bomber extends Mob {
                 }
                 else if (entity instanceof BombItem) {
                     buffBomb = true;
-                }
-                else if (entity instanceof Portal) {
-                    try {
-                        new EndGameScene(Controller.stage, "textures/bomberman_background.png");
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
                 }
                 Timeline animation = new Timeline(new KeyFrame(Duration.seconds(30), e -> {
                     if (countDown.get() > 0) {
