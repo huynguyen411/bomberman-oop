@@ -49,7 +49,6 @@ public class StartScene {
 
     private void createButtons(){
         createStartButton();
-        createScoresButton();
         createMusicButton();
         createExitButton();
     }

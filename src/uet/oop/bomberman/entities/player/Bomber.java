@@ -43,7 +43,7 @@ public class Bomber extends Mob {
 
     public Bomber(double x, double y, Image img) {
         super(x, y, img);
-        super.rec = new Rectangle(x + 0.1, y + 0.1, 0.7, 0.9);
+        super.rec = new Rectangle(x + 0.1, y + 0.1, 0.8, 1.03);
         this.speed = 0.05;
         this.life = 3;
     }
@@ -217,7 +217,7 @@ public class Bomber extends Mob {
                 }
                 else if (entity instanceof Portal) {
                     try {
-                        EndGameScene endGameScene = new EndGameScene(Controller.stage, "textures/bomberman_background.png");
+                        new EndGameScene(Controller.stage, "textures/bomberman_background.png");
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -249,7 +249,6 @@ public class Bomber extends Mob {
         for (Entity entity : Controller.entities) {
             if ((entity instanceof Enemy || entity instanceof Flame) && checkIfStuck(entity)) {
                 life--;
-                System.out.println(life);
                 if (life == 0) {
                     isDead = true;
                 }
@@ -266,7 +265,7 @@ public class Bomber extends Mob {
                 reborn();
                 new Sound("die_restart.wav").play();
             }
-            if (isDead) {
+            if (this.life == -1) {
                 this.setMark(true);
                 dead();
                 AtomicInteger countDown = new AtomicInteger(1);
