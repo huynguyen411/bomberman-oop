@@ -11,13 +11,11 @@ import uet.oop.bomberman.entities.Rectangle;
 import uet.oop.bomberman.entities.bomb.Bomb;
 import uet.oop.bomberman.entities.bomb.Flame;
 import uet.oop.bomberman.entities.enemy.Enemy;
-import uet.oop.bomberman.entities.item.BombItem;
-import uet.oop.bomberman.entities.item.FlameItem;
-import uet.oop.bomberman.entities.item.Item;
-import uet.oop.bomberman.entities.item.SpeedItem;
+import uet.oop.bomberman.entities.item.*;
 import uet.oop.bomberman.graphics.Sprite;
 import uet.oop.bomberman.sound.Sound;
 import uet.oop.bomberman.viewmanager.Controller;
+import uet.oop.bomberman.viewmanager.EndGameScene;
 
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -32,6 +30,7 @@ public class Bomber extends Mob {
     private boolean isDownKeyPressed;
     private boolean isSpaceKeyPressed;
     private boolean isBombed = false;
+    private boolean isDead = false;
     private boolean buffRange = false;
     private boolean buffSpeed = false;
     private boolean buffBomb = false;
@@ -44,8 +43,8 @@ public class Bomber extends Mob {
 
     public Bomber(double x, double y, Image img) {
         super(x, y, img);
-        super.rec = new Rectangle(x + 0.1, y + 0.1, 0.8, 1.03);
-        this.speed = 0.03;
+        super.rec = new Rectangle(x + 0.1, y + 0.1, 0.7, 0.9);
+        this.speed = 0.05;
         this.life = 3;
     }
 
@@ -87,8 +86,9 @@ public class Bomber extends Mob {
 
     private void move() {
         if(buffSpeed) {
-            this.speed = 0.05;
+            this.speed = 0.08;
         }
+        else this.speed = 0.05;
 
         createListener();
 
@@ -215,6 +215,13 @@ public class Bomber extends Mob {
                 else if (entity instanceof BombItem) {
                     buffBomb = true;
                 }
+                else if (entity instanceof Portal) {
+                    try {
+                        EndGameScene endGameScene = new EndGameScene(Controller.stage, "textures/bomberman_background.png");
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
                 Timeline animation = new Timeline(new KeyFrame(Duration.seconds(30), e -> {
                     if (countDown.get() > 0) {
                         buffRange = false;
@@ -241,8 +248,11 @@ public class Bomber extends Mob {
     public boolean touchEnemy() {
         for (Entity entity : Controller.entities) {
             if ((entity instanceof Enemy || entity instanceof Flame) && checkIfStuck(entity)) {
-                this.life--;
+                life--;
                 System.out.println(life);
+                if (life == 0) {
+                    isDead = true;
+                }
                 return true;
             }
         }
@@ -252,15 +262,29 @@ public class Bomber extends Mob {
     @Override
     public void update() {
         if (touchEnemy()) {
-            if (this.life > 0) {
+            if (!isDead) {
                 reborn();
                 new Sound("die_restart.wav").play();
-            } else {
+            }
+            if (isDead) {
                 this.setMark(true);
                 dead();
+                AtomicInteger countDown = new AtomicInteger(1);
+                Timeline animation = new Timeline(new KeyFrame(Duration.seconds(1), e -> {
+                    if (countDown.get() == 0) {
+                        try {
+                            EndGameScene endGameScene = new EndGameScene(Controller.stage, "textures/game over.jpg");
+                        } catch (Exception i) {
+                            i.printStackTrace();
+                        }
+                    }
+                    countDown.getAndDecrement();
+                }));
+                animation.setCycleCount(Timeline.INDEFINITE);
+                animation.play();
             }
         }
         move();
     }
-
 }
+

@@ -7,10 +7,11 @@ import javafx.stage.Stage;
 
 import java.io.File;
 
-public class Sound extends Application {
+public class Sound {
 
     private Media media;
     private MediaPlayer player;
+    public static boolean isSound = false;
     public Sound(String file) {
         String link = "res/sound/" + file;
         media = new Media(new File(link).toURI().toString());
@@ -18,15 +19,25 @@ public class Sound extends Application {
     }
 
     public void play() {
-        player.play();
-    }
-    @Override
-    public void stop() throws Exception {
-        player.stop();
+        if (isSound)
+            player.play();
     }
 
-    @Override
-    public void start(Stage stage) throws Exception {
-        player.play();
+    public void stop() {
+        if (isSound)
+            player.stop();
+    }
+
+    public void start(Stage stage) {
+        if (isSound)
+            player.play();
+    }
+
+    public void setSound(boolean sound) {
+        isSound = sound;
+    }
+
+    private boolean getSound() {
+        return isSound;
     }
 }

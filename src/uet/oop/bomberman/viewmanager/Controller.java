@@ -11,14 +11,10 @@ import uet.oop.bomberman.entities.bomb.Bomb;
 import uet.oop.bomberman.entities.bomb.Flame;
 import uet.oop.bomberman.entities.enemy.Enemy;
 import uet.oop.bomberman.entities.enemy.Oneal;
-import uet.oop.bomberman.entities.item.BombItem;
-import uet.oop.bomberman.entities.item.FlameItem;
-import uet.oop.bomberman.entities.item.Item;
-import uet.oop.bomberman.entities.item.SpeedItem;
+import uet.oop.bomberman.entities.item.*;
 import uet.oop.bomberman.entities.enemy.Balloon;
 import uet.oop.bomberman.entities.player.Bomber;
 import uet.oop.bomberman.graphics.Sprite;
-import uet.oop.bomberman.sound.Sound;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -29,7 +25,7 @@ import java.util.Scanner;
 public class Controller {
     public static final int WIDTH = 31;
     public static final int HEIGHT = 13;
-    private Stage stage;
+    public static Stage stage;
     public static Scene scene;
     private AnimationTimer timer;
 
@@ -88,6 +84,13 @@ public class Controller {
                             stillObjects.add(new Brick(j, i, Sprite.brick.getFxImage()));
                             break;
                         }
+                        case 'x': {
+                            object = new Portal(j, i, Sprite.portal.getFxImage());
+                            stillObjects.add(new Grass(j, i, Sprite.grass.getFxImage()));
+                            stillObjects.add(object);
+                            stillObjects.add(new Brick(j, i, Sprite.brick.getFxImage()));
+                            break;
+                        }
                         case '1': {
                             stillObjects.add(new Grass(j, i, Sprite.grass.getFxImage()));
                             Balloon balloon = new Balloon(j, i, Sprite.balloon_left1.getFxImage());
@@ -100,6 +103,7 @@ public class Controller {
                             entities.add(enemy);
                             break;
                         }
+
                         default: {
                             object = new Grass(j, i, Sprite.grass.getFxImage());
                             stillObjects.add(object);
@@ -108,11 +112,12 @@ public class Controller {
                     }
                 }
             }
-        } catch (Exception e) {
-        System.out.println(e.getMessage());
+        }
+        catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 
-}
     public Controller(Stage menuStage) {
         menuStage.hide();
         start();

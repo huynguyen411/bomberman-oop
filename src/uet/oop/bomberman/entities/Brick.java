@@ -29,7 +29,7 @@ public class Brick extends Entity{
         animation.setCycleCount(Timeline.INDEFINITE);
         animation.play();
         if (Controller.map[(int) y].charAt((int) x) == 'f' || Controller.map[(int) y].charAt((int) x) == 's' ||
-                Controller.map[(int) y].charAt((int) x) == 'b') {
+                Controller.map[(int) y].charAt((int) x) == 'b' || Controller.map[(int) y].charAt((int) x) == 'x') {
             for (Entity entity : stillObjects) {
                 if (entity instanceof Item && entity.getX() == x && entity.getY() == y)
                     ((Item) entity).setShown(true);

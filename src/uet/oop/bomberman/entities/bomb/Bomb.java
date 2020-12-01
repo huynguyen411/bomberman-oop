@@ -16,7 +16,7 @@ import static uet.oop.bomberman.entities.bomb.Flame.*;
 
 public class Bomb extends Entity {
 
-    private Sound explosionSound = new Sound("bomb_explosion_1.wav");
+    private Sound explosionSound;
 
     public void setExplosionSound(Sound explosionSound) {
         this.explosionSound = explosionSound;
@@ -32,6 +32,9 @@ public class Bomb extends Entity {
 
     public Bomb(int x, int y, Image img) {
         super(x, y, img);
+        if (Sound.isSound) {
+            explosionSound = new Sound("bomb_explosion_1.wav");
+        }
     }
 
     public void setImage(Image image) {

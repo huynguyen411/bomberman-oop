@@ -6,37 +6,33 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 import uet.oop.bomberman.graphics.Buttons.GameButton;
 import uet.oop.bomberman.sound.Sound;
 
 import java.util.ArrayList;
 
-public class StartScene {
-    public static final int WIDTH = 920;
-    public static final int HEIGHT = 688;
+public class EndGameScene {
+    public static final int WIDTH = 1280;
+    public static final int HEIGHT = 720;
     private AnchorPane menuPane;
     private Stage stage;
     private Scene scene;
     private Sound sound;
-//    private boolean playSound = false;
     private static final int NEW_BUTTONS_START_X = 100;
     public static final int NEW_BUTTONS_START_Y = 150;
 
     ArrayList<GameButton> menuButtons;
 
-    public StartScene() throws Exception {
+    public EndGameScene(Stage menutage, String imageUrl) throws Exception {
+        menutage.hide();
         menuButtons = new ArrayList<>();
         menuPane = new AnchorPane();
         scene = new Scene(menuPane, WIDTH, HEIGHT);
         stage = new Stage();
         stage.setScene(scene);
-
         createButtons();
-        createBackground();
-
+        createBackground(imageUrl);
         stage.show();
-
     };
 
 
@@ -48,9 +44,6 @@ public class StartScene {
     }
 
     private void createButtons(){
-        createStartButton();
-        createScoresButton();
-        createMusicButton();
         createExitButton();
     }
 
@@ -61,18 +54,16 @@ public class StartScene {
         button.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                if (Sound.isSound) {
-                    try {
-                        sound.stop();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                    sound = new Sound("level_start.wav");
-                    try {
-                        sound.start(stage);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
+                try {
+                    sound.stop();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                sound = new Sound("level_start.wav");
+                try {
+                    sound.start(stage);
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
                 Controller controller = new Controller(stage);
             }
@@ -97,13 +88,7 @@ public class StartScene {
         button.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                Sound.isSound = true;
-                try {
-                    sound = new Sound("background_music.wav");
-                    sound.start(stage);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+
             }
         });
     }
@@ -120,8 +105,8 @@ public class StartScene {
         });
     }
 
-    private void createBackground(){
-        Image image = new Image("/textures/bomberman_background.png", 920, 688, false, true);
+    private void createBackground(String imgUrl){
+        Image image = new Image(imgUrl, 1280, 720, false, true);
         BackgroundImage backgroundImage = new BackgroundImage(image, BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT,
                 BackgroundPosition.DEFAULT, null);
         menuPane.setBackground(new Background(backgroundImage));
